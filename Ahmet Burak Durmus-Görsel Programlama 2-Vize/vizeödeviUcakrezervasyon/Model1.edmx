@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="U_BİLET">
+          <Key>
+            <PropertyRef Name="Bilet_Id" />
+          </Key>
+          <Property Name="Bilet_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yolcu_Id" Type="int" />
+          <Property Name="Sefer_Id" Type="int" />
+          <Property Name="Koltuk_No" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="U_SEFERLER">
+          <Key>
+            <PropertyRef Name="Sefer_Id" />
+          </Key>
+          <Property Name="Sefer_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kalkış_Yer" Type="nvarchar" MaxLength="50" />
+          <Property Name="Varış_Yer" Type="nvarchar" MaxLength="50" />
+          <Property Name="Kalkış_Tarih" Type="nvarchar" MaxLength="50" />
+          <Property Name="Varıs_Tarih" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ucak_Id" Type="int" />
+          <Property Name="Ücret" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sefer_Ad" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="U_Ucak">
+          <Key>
+            <PropertyRef Name="Ucak_Id" />
+          </Key>
+          <Property Name="Ucak_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ucak_Ad" Type="nchar" MaxLength="10" />
+          <Property Name="Koltuk_Sayısı" Type="int" />
+        </EntityType>
+        <EntityType Name="U_YOLCU">
+          <Key>
+            <PropertyRef Name="Yolcu_Id" />
+          </Key>
+          <Property Name="Yolcu_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="İsim" Type="nvarchar" MaxLength="50" />
+          <Property Name="Yas" Type="nvarchar" MaxLength="3" />
+          <Property Name="Cinsiyet" Type="nvarchar" MaxLength="50" />
+          <Property Name="Yaşlı_Mı" Type="nvarchar" MaxLength="50" />
+          <Property Name="Engelli_Mi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Koltuk_No" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_U_BİLET_U_SEFERLER">
+          <End Role="U_SEFERLER" Type="Self.U_SEFERLER" Multiplicity="0..1" />
+          <End Role="U_BİLET" Type="Self.U_BİLET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="U_SEFERLER">
+              <PropertyRef Name="Sefer_Id" />
+            </Principal>
+            <Dependent Role="U_BİLET">
+              <PropertyRef Name="Sefer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_U_BİLET_U_YOLCU">
+          <End Role="U_YOLCU" Type="Self.U_YOLCU" Multiplicity="0..1" />
+          <End Role="U_BİLET" Type="Self.U_BİLET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="U_YOLCU">
+              <PropertyRef Name="Yolcu_Id" />
+            </Principal>
+            <Dependent Role="U_BİLET">
+              <PropertyRef Name="Yolcu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_U_SEFERLER_U_Ucak">
+          <End Role="U_Ucak" Type="Self.U_Ucak" Multiplicity="0..1" />
+          <End Role="U_SEFERLER" Type="Self.U_SEFERLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="U_Ucak">
+              <PropertyRef Name="Ucak_Id" />
+            </Principal>
+            <Dependent Role="U_SEFERLER">
+              <PropertyRef Name="Ucak_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="U_BİLET" EntityType="Self.U_BİLET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="U_SEFERLER" EntityType="Self.U_SEFERLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="U_Ucak" EntityType="Self.U_Ucak" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="U_YOLCU" EntityType="Self.U_YOLCU" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_U_BİLET_U_SEFERLER" Association="Self.FK_U_BİLET_U_SEFERLER">
+            <End Role="U_SEFERLER" EntitySet="U_SEFERLER" />
+            <End Role="U_BİLET" EntitySet="U_BİLET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_U_BİLET_U_YOLCU" Association="Self.FK_U_BİLET_U_YOLCU">
+            <End Role="U_YOLCU" EntitySet="U_YOLCU" />
+            <End Role="U_BİLET" EntitySet="U_BİLET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_U_SEFERLER_U_Ucak" Association="Self.FK_U_SEFERLER_U_Ucak">
+            <End Role="U_Ucak" EntitySet="U_Ucak" />
+            <End Role="U_SEFERLER" EntitySet="U_SEFERLER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="U_BİLET">
+          <Key>
+            <PropertyRef Name="Bilet_Id" />
+          </Key>
+          <Property Name="Bilet_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Yolcu_Id" Type="Int32" />
+          <Property Name="Sefer_Id" Type="Int32" />
+          <Property Name="Koltuk_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="U_SEFERLER" Relationship="Self.FK_U_BİLET_U_SEFERLER" FromRole="U_BİLET" ToRole="U_SEFERLER" />
+          <NavigationProperty Name="U_YOLCU" Relationship="Self.FK_U_BİLET_U_YOLCU" FromRole="U_BİLET" ToRole="U_YOLCU" />
+        </EntityType>
+        <EntityType Name="U_SEFERLER">
+          <Key>
+            <PropertyRef Name="Sefer_Id" />
+          </Key>
+          <Property Name="Sefer_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kalkış_Yer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Varış_Yer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Kalkış_Tarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Varıs_Tarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ucak_Id" Type="Int32" />
+          <Property Name="Ücret" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sefer_Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="U_BİLET" Relationship="Self.FK_U_BİLET_U_SEFERLER" FromRole="U_SEFERLER" ToRole="U_BİLET" />
+          <NavigationProperty Name="U_Ucak" Relationship="Self.FK_U_SEFERLER_U_Ucak" FromRole="U_SEFERLER" ToRole="U_Ucak" />
+        </EntityType>
+        <EntityType Name="U_Ucak">
+          <Key>
+            <PropertyRef Name="Ucak_Id" />
+          </Key>
+          <Property Name="Ucak_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ucak_Ad" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Koltuk_Sayısı" Type="Int32" />
+          <NavigationProperty Name="U_SEFERLER" Relationship="Self.FK_U_SEFERLER_U_Ucak" FromRole="U_Ucak" ToRole="U_SEFERLER" />
+        </EntityType>
+        <EntityType Name="U_YOLCU">
+          <Key>
+            <PropertyRef Name="Yolcu_Id" />
+          </Key>
+          <Property Name="Yolcu_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="İsim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Yas" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Cinsiyet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Yaşlı_Mı" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Engelli_Mi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Koltuk_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="U_BİLET" Relationship="Self.FK_U_BİLET_U_YOLCU" FromRole="U_YOLCU" ToRole="U_BİLET" />
+        </EntityType>
+        <Association Name="FK_U_BİLET_U_SEFERLER">
+          <End Role="U_SEFERLER" Type="Self.U_SEFERLER" Multiplicity="0..1" />
+          <End Role="U_BİLET" Type="Self.U_BİLET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="U_SEFERLER">
+              <PropertyRef Name="Sefer_Id" />
+            </Principal>
+            <Dependent Role="U_BİLET">
+              <PropertyRef Name="Sefer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_U_BİLET_U_YOLCU">
+          <End Role="U_YOLCU" Type="Self.U_YOLCU" Multiplicity="0..1" />
+          <End Role="U_BİLET" Type="Self.U_BİLET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="U_YOLCU">
+              <PropertyRef Name="Yolcu_Id" />
+            </Principal>
+            <Dependent Role="U_BİLET">
+              <PropertyRef Name="Yolcu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_U_SEFERLER_U_Ucak">
+          <End Role="U_Ucak" Type="Self.U_Ucak" Multiplicity="0..1" />
+          <End Role="U_SEFERLER" Type="Self.U_SEFERLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="U_Ucak">
+              <PropertyRef Name="Ucak_Id" />
+            </Principal>
+            <Dependent Role="U_SEFERLER">
+              <PropertyRef Name="Ucak_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Ucak_rezervasyonSonEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="U_BİLET" EntityType="Self.U_BİLET" />
+          <EntitySet Name="U_SEFERLER" EntityType="Self.U_SEFERLER" />
+          <EntitySet Name="U_Ucak" EntityType="Self.U_Ucak" />
+          <EntitySet Name="U_YOLCU" EntityType="Self.U_YOLCU" />
+          <AssociationSet Name="FK_U_BİLET_U_SEFERLER" Association="Self.FK_U_BİLET_U_SEFERLER">
+            <End Role="U_SEFERLER" EntitySet="U_SEFERLER" />
+            <End Role="U_BİLET" EntitySet="U_BİLET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_U_BİLET_U_YOLCU" Association="Self.FK_U_BİLET_U_YOLCU">
+            <End Role="U_YOLCU" EntitySet="U_YOLCU" />
+            <End Role="U_BİLET" EntitySet="U_BİLET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_U_SEFERLER_U_Ucak" Association="Self.FK_U_SEFERLER_U_Ucak">
+            <End Role="U_Ucak" EntitySet="U_Ucak" />
+            <End Role="U_SEFERLER" EntitySet="U_SEFERLER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Ucak_rezervasyonSonEntities2">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="U_BİLET">
+            <EntityTypeMapping TypeName="Model.U_BİLET">
+              <MappingFragment StoreEntitySet="U_BİLET">
+                <ScalarProperty Name="Bilet_Id" ColumnName="Bilet_Id" />
+                <ScalarProperty Name="Yolcu_Id" ColumnName="Yolcu_Id" />
+                <ScalarProperty Name="Sefer_Id" ColumnName="Sefer_Id" />
+                <ScalarProperty Name="Koltuk_No" ColumnName="Koltuk_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="U_SEFERLER">
+            <EntityTypeMapping TypeName="Model.U_SEFERLER">
+              <MappingFragment StoreEntitySet="U_SEFERLER">
+                <ScalarProperty Name="Sefer_Id" ColumnName="Sefer_Id" />
+                <ScalarProperty Name="Kalkış_Yer" ColumnName="Kalkış_Yer" />
+                <ScalarProperty Name="Varış_Yer" ColumnName="Varış_Yer" />
+                <ScalarProperty Name="Kalkış_Tarih" ColumnName="Kalkış_Tarih" />
+                <ScalarProperty Name="Varıs_Tarih" ColumnName="Varıs_Tarih" />
+                <ScalarProperty Name="Ucak_Id" ColumnName="Ucak_Id" />
+                <ScalarProperty Name="Ücret" ColumnName="Ücret" />
+                <ScalarProperty Name="Sefer_Ad" ColumnName="Sefer_Ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="U_Ucak">
+            <EntityTypeMapping TypeName="Model.U_Ucak">
+              <MappingFragment StoreEntitySet="U_Ucak">
+                <ScalarProperty Name="Ucak_Id" ColumnName="Ucak_Id" />
+                <ScalarProperty Name="Ucak_Ad" ColumnName="Ucak_Ad" />
+                <ScalarProperty Name="Koltuk_Sayısı" ColumnName="Koltuk_Sayısı" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="U_YOLCU">
+            <EntityTypeMapping TypeName="Model.U_YOLCU">
+              <MappingFragment StoreEntitySet="U_YOLCU">
+                <ScalarProperty Name="Yolcu_Id" ColumnName="Yolcu_Id" />
+                <ScalarProperty Name="İsim" ColumnName="İsim" />
+                <ScalarProperty Name="Yas" ColumnName="Yas" />
+                <ScalarProperty Name="Cinsiyet" ColumnName="Cinsiyet" />
+                <ScalarProperty Name="Yaşlı_Mı" ColumnName="Yaşlı_Mı" />
+                <ScalarProperty Name="Engelli_Mi" ColumnName="Engelli_Mi" />
+                <ScalarProperty Name="Koltuk_No" ColumnName="Koltuk_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
