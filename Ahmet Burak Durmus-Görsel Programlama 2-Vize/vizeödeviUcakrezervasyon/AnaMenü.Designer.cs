@@ -97,6 +97,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "AnaMenü";
             this.Text = "AnaMenü";
+            this.Load += new System.EventHandler(this.AnaMenü_Load);
             this.Click += new System.EventHandler(this.button1_Click);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

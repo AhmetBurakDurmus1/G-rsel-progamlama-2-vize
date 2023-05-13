@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace vizeödeviUcakrezervasyon
 {
-    public partial class Rezervasyon : Form
+    public partial class rezervasyon : Form
     {
-        public Rezervasyon()
+        public rezervasyon()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace vizeödeviUcakrezervasyon
             this.Hide();
         }
 
-        private void Rezervasyon_Load(object sender, EventArgs e)
+        private void rezervasyon_Load(object sender, EventArgs e)
         {
             cmbSefer.DisplayMember = "Sefer_Ad";
             cmbSefer.ValueMember = "Sefer_Id";
@@ -107,6 +107,7 @@ namespace vizeödeviUcakrezervasyon
 
         private void btnYenile_Click(object sender, EventArgs e)
         {
+
             dataGridView1.DataSource = (from x in db.U_YOLCU
                                         select new
                                         {
@@ -116,11 +117,6 @@ namespace vizeödeviUcakrezervasyon
                                             x.Cinsiyet,
                                             x.Yaşlı_Mı,
                                         }).ToList();
-        }
-
-        private void Rezervasyon_Load_1(object sender, EventArgs e)
-        {
-
         }
     }
 }

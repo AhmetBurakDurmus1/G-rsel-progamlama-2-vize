@@ -33,12 +33,17 @@ namespace vizeödeviUcakrezervasyon
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Rezervasyon fr = new Rezervasyon();
+            rezervasyon fr = new rezervasyon();
             fr.Show();
             this.Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AnaMenü_Load(object sender, EventArgs e)
         {
 
         }
